@@ -19,7 +19,8 @@ let listen: IOHIDValueCallback = {
     let app = Unmanaged<App>.fromOpaque(context!).takeUnretainedValue()
     let device = Unmanaged<IOHIDDevice>.fromOpaque(sender!).takeUnretainedValue()
     let product = IOHIDDeviceGetProperty(device, kIOHIDProductKey as CFString) as! CFString as String
-    if product.trimmingCharacters(in: .whitespacesAndNewlines) != "GWS IDI Device" {
+    // Skipping Logitech USB Trackball used for foot buttons
+    if product.trimmingCharacters(in: .whitespacesAndNewlines) != "USB Trackball" {
         app.act()
     }
 }
